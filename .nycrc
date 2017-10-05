@@ -1,0 +1,23 @@
+{
+  "lines": 99,
+  "statements": 99,
+  "functions": 99,
+  "branches": 99,
+  "include": [
+    "lib/**/*.js"
+  ],
+  "require": [
+    "./spec/.config/bootstrap.js"
+  ],
+  "exclude": [
+    "./spec",
+    "**/constants.js",
+    "**/env.js",
+    "**/onConfigCreated.js"
+  ],
+  "reporter": [
+    "text",
+    "html"
+  ],
+  "all": true
+}
