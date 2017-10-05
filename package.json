@@ -19,8 +19,7 @@
     "type": "git",
     "url": "https://github.com/venzee/deployment-tools.git"
   },
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
   "dependencies": {
     "fs-extra": "^4.0.2"
   },
