@@ -7,7 +7,7 @@ describe( 'The updateParametersFunction', ()=>{
 
     const expectedKey
       = 'SomeKey';
-    
+
     const expected
       = 'SomeValue';
 
@@ -27,7 +27,7 @@ describe( 'The updateParametersFunction', ()=>{
 
     const expectedKey
       = 'SomeKey';
-    
+
     const expected
       = 'SomeValue';
 
@@ -51,7 +51,7 @@ describe( 'The updateParametersFunction', ()=>{
 
     const expectedKey
       = 'SomeKey';
-    
+
     const expected
       = 'SomeValue';
 
@@ -70,12 +70,74 @@ describe( 'The updateParametersFunction', ()=>{
 
   } );
 
+  it( 'should override values found at an object path in the config object provided', ()=>{
+
+    const someParentKey
+      = 'SomeParentKey';
+
+    const someChildKey
+      = 'SomeChild';
+
+    const expectedKey
+      = `${ someParentKey }.${ someChildKey }`;
+
+    const expected
+      = 'SomeValue';
+
+    const updateParameters = getUpdateParametersFunction( {
+      [ `${ BUILD_PARAMETER_KEY }${ expectedKey }` ]: expected
+    } );
+
+    const targetConfig = {
+      [ someParentKey ]: {
+        [ someChildKey ]: 'somethingElse'
+      }
+    };
+
+    const actual
+      = updateParameters( targetConfig );
+
+    expect( actual[ someParentKey ][ someChildKey ] )
+      .to.equal( expected );
+
+  } );
+
+  it( 'should override values found at an array path in the config object provided', ()=>{
+
+    const someKey
+      = 'SomeKey';
+
+    const expectedKey
+      = `${ someKey }[0]`;
+
+    const expected
+      = 'SomeValue';
+
+    const updateParameters = getUpdateParametersFunction( {
+      [ `${ BUILD_PARAMETER_KEY }${ expectedKey }` ]: expected
+    } );
+
+    const targetConfig = {
+      [ someKey ]: [
+        'somethingElse'
+      ]
+    };
+
+    const actual
+      = updateParameters( targetConfig );
+
+    expect( actual[ someKey ][ 0 ] )
+      .to.equal( expected );
+
+  } );
+
+
   // helpers
 
   function getUpdateParametersFunction( env ){
- 
+
     return proxyquire( '../../lib/createCustomConfig/updateParameters', { './env': env } );
-    
+
   }
 
 } );

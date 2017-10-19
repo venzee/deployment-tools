@@ -49,5 +49,30 @@ will be added to or overridden in the existing configuration at
 For example, `VENZEE_CUSTOM_BUILD_PARAMETER_SEGMENTIO_ID='A1234'` will set
 the configuration value of `SEGMENTIO_ID` to `A1234`.
 
-:warning: Note that currently **only simple types** (strings,
-numbers, booleans) **are supported**, complex objects and arrays are not.
+##### Complex types
+
+The `VENZEE_CUSTOM_BUILD_PARAMETER_` prefix supports setting values of
+complex types. To set the value of a complex type, you define the path
+to the value you want to set after the prefix.
+
+For example, say you had the following complex types in your configuration:
+
+```javascript
+{
+  "KEY_A": {
+    "KEY_A_1": "Value_A"
+  },
+  "KEY_B": [
+    "Value_B"
+  ]
+}
+```
+
+Defining `VENZEE_CUSTOM_BUILD_PARAMETER_KEY_A.KEY_A_1='NEW_VALUE_A` would
+set the configuration value of `KEY_A_1` to `NEW_VALUE_A`.
+
+Defining `VENZEE_CUSTOM_BUILD_PARAMETER_KEY_B[0]='NEW_VALUE_B` would
+set the configuration value of index `0` of `KEY_B` to `NEW_VALUE_B`.
+
+see also [lodash#set](https://lodash.com/docs/4.17.4#set), which is
+internally used to set these values.

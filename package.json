@@ -1,6 +1,6 @@
 {
   "name": "@venzee/deployment-tools",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Non-Intrusive deployment tools for Venzee's Web Applications",
   "scripts": {
     "pretest": "eslint --fix .",
@@ -20,7 +20,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "fs-extra": "^4.0.2"
+    "fs-extra": "^4.0.2",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "chai": "^4.1.2",
