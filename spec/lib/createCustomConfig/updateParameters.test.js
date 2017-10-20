@@ -79,7 +79,7 @@ describe( 'The updateParametersFunction', ()=>{
       = 'SomeChild';
 
     const expectedKey
-      = `${ someParentKey }.${ someChildKey }`;
+      = `${ someParentKey }__${ someChildKey }`;
 
     const expected
       = 'SomeValue';
@@ -108,7 +108,7 @@ describe( 'The updateParametersFunction', ()=>{
       = 'SomeKey';
 
     const expectedKey
-      = `${ someKey }[0]`;
+      = `${ someKey }___0`;
 
     const expected
       = 'SomeValue';
@@ -141,3 +141,4 @@ describe( 'The updateParametersFunction', ()=>{
   }
 
 } );
+

@@ -68,11 +68,13 @@ For example, say you had the following complex types in your configuration:
 }
 ```
 
-Defining `VENZEE_CUSTOM_BUILD_PARAMETER_KEY_A.KEY_A_1='NEW_VALUE_A` would
+Defining `VENZEE_CUSTOM_BUILD_PARAMETER_KEY_A__KEY_A_1='NEW_VALUE_A` would
 set the configuration value of `KEY_A_1` to `NEW_VALUE_A`.
 
-Defining `VENZEE_CUSTOM_BUILD_PARAMETER_KEY_B[0]='NEW_VALUE_B` would
+Defining `VENZEE_CUSTOM_BUILD_PARAMETER_KEY_B___0='NEW_VALUE_B` would
 set the configuration value of index `0` of `KEY_B` to `NEW_VALUE_B`.
 
-see also [lodash#set](https://lodash.com/docs/4.17.4#set), which is
-internally used to set these values.
+:warning: The complex object implementation is rather crude. You can currently
+not combine Object and Array types.
+E.g. `VENZEE_CUSTOM_BUILD_PARAMETER_KEY_A__KEY_A_1___0` would currently not
+work.
