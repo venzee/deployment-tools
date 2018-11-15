@@ -17,8 +17,7 @@ cp -r /home/$PROJECT_PATH/app/$PROJECT_TO_DEPLOY_PATH /$PROJECT_BASE_BUILD_PATH
 echo "Copying deploy tools to /build"
 
 cp /home/$PROJECT_PATH/app/clearcdncache /$PROJECT_BASE_BUILD_PATH
-cp node_modules/@venzee/deployment-tools/tools/extractfeatureid /$PROJECT_BASE_BUILD_PATH
+cp /home/$PROJECT_PATH/app/extractfeatureid /$PROJECT_BASE_BUILD_PATH
 cp /home/$PROJECT_PATH/app/deployfeature.sh /$PROJECT_BASE_BUILD_PATH
-
 
 echo "Build done succesfully"
