@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+>&2 echo "ENV is:$ENV"
+>&2 echo "CI_BRANCH is: $CI_BRANCH"
+branch_regex="^(bug|content|env|feature|hotfix)/([^(]+)(\($ENV-deploy\))?$"
+if [[ $CI_BRANCH =~ $branch_regex ]]; then
+
+  feature_id="${BASH_REMATCH[1],,}-${BASH_REMATCH[2],,}"
+  echo "$feature_id"
+
+elif [ -z "$CI_BRANCH" ]; then
+
+  (>&2 echo "Error: \"CI_BRANCH\" environment variable is not set. Value must match pattern \"$branch_regex\"")
+  exit 1
+
+else
+  (>&2 echo Error: Branch \"$CI_BRANCH\" does not match the expected pattern \"$branch_regex\")
+  exit 1
+fi
+

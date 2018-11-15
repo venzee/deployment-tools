@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+npm i -q --only=prod --ignore-scripts --global-style @venzee/deployment-tools
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+feature_id=`${DIR}/extractfeatureid`
+
+node node_modules/@venzee/deployment-tools/lib/createCustomConfig
