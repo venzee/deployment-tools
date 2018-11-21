@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-host=$1
-dns_provider_url=$2
+host=${feature_id}-$ENV.venzee.com
+dns_provider_url="https://api.cloudflare.com/client/v4/zones/${CF_ZONE}"
 sync_data=`cat /build/sync.log`
 
 file_regex="dist(\/[^ ]+).+"

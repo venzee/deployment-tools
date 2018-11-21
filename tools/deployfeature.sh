@@ -58,7 +58,7 @@ if [[ $dns_records =~ $sucess_regex ]]; then
   else
     echo "Verified that DNS entry for \"${dns_record_name}\" exists"
     echo "Purging cached CDN Data"
-    ${DIR}/clearcdncache "https://${dns_record_name}" "$dns_provider_url"
+    ${DIR}/clearcdncache
 
   fi
 
