@@ -1,0 +1,63 @@
+#!/bin/bash
+
+
+host=${feature_id}-$ENV.venzee.com
+dns_provider_url="https://api.cloudflare.com/client/v4/zones/${CF_ZONE}"
+sync_data=`cat /build/sync.log`
+
+file_regex="dist(\/[^ ]+).+"
+sucess_regex="\"success\": *true"
+
+
+function clearRecords(){
+
+  paths_to_clear=$1
+
+  purge_result=`curl -s -X POST "${dns_provider_url}/purge_cache" \
+    -H "X-Auth-Email: ${CF_AUTH_EMAIL}" \
+    -H "X-Auth-Key: ${CF_AUTH_KEY}" \
+    -H "Content-Type: application/json" \
+    --data "'{\"{files\":[$paths_to_clear]}'"`
+
+  if [[ $purge_result =~ $sucess_regex ]]; then
+      echo "Purged DNS cache for \"${paths_to_clear}\""
+  else
+        >&2 echo "
+        WARNING: Failed to purge DNS cache for
+        \"${paths_to_clear}\"
+        Server responded with:
+        ${create_result}
+        "
+  fi
+
+}
+
+counter=0
+
+while read -r line; do
+  echo $line
+  if [[ $line =~ $file_regex ]]; then
+
+    path="$host${BASH_REMATCH[1]}"
+
+    ((counter=counter+1))
+
+    if (( counter % 30 == 1 )); then
+      PATHS_TO_CLEAR="\"$path\""
+    else
+      PATHS_TO_CLEAR="$PATHS_TO_CLEAR,\"$path\""
+    fi
+
+    if ((counter % 30 == 0 )); then
+      clearRecords $PATHS_TO_CLEAR
+      PATHS_TO_CLEAR=""
+    fi
+
+  fi
+
+done <<< "$sync_data"
+
+if [[ ! -z $PATHS_TO_CLEAR ]]; then
+  clearRecords $PATHS_TO_CLEAR
+fi
+
