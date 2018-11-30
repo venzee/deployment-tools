@@ -1,6 +1,6 @@
 {
   "name": "@venzee/deployment-tools",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Non-Intrusive deployment tools for Venzee's Web Applications",
   "scripts": {
     "pretest": "eslint --fix .",
